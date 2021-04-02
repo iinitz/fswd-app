@@ -17,7 +17,7 @@ const Navbar = () => {
         return (
           <Fragment>
             <NavLink className="Navbar-user" to="/me">{user?.name}</NavLink>
-            <button className="Navbar-button" type="button" onClick={handleLogout}>Logout</button>
+            <button className="Button Button-border Navbar-button" type="button" onClick={handleLogout}>Logout</button>
           </Fragment>
         )
       }
@@ -34,7 +34,7 @@ const Navbar = () => {
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/homework">Homework</NavLink>
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/developer">Developer</NavLink>
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/senior">Senior</NavLink>
-      <div className="Navbar-space" />
+      <div className="Space" />
       <Suspense fallback={null}>
         {userBox}
       </Suspense>

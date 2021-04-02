@@ -1,0 +1,5 @@
+.GridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: calc(var(--spacing) * 2);
+}

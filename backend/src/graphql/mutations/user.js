@@ -41,19 +41,19 @@ export const login = schemaComposer.createResolver({
   },
 })
 
-const SetPasswordPayload = schemaComposer.createObjectTC({
-  name: 'SetPasswordPayload',
+const ChangePasswordPayload = schemaComposer.createObjectTC({
+  name: 'ChangePasswordPayload',
   fields: {
     token: 'String',
     user: UserTC.getType(),
   },
 })
-export const setPassword = schemaComposer.createResolver({
-  name: 'setPassword',
+export const changePassword = schemaComposer.createResolver({
+  name: 'changePassword',
   args: {
     password: 'String!',
   },
-  type: SetPasswordPayload,
+  type: ChangePasswordPayload,
   resolve: async ({ args, context }) => {
     const { password } = args
     const { _id: userId } = context.user

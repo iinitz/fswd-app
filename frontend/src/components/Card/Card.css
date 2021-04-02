@@ -1,0 +1,21 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--spacing);
+  padding: calc(var(--spacing) * 2);
+}
+.Card:hover {
+  border-color: var(--border-hover);
+}
+.Card-header {
+  font-size: var(--font-header);
+  font-weight: bold;
+  margin: 0;
+}
+.Card-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

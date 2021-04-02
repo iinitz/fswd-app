@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node -r @babel/register -r dotenv/config src/app.js",
-    "dev": "nodemon -r @babel/register -r dotenv/config src/app.js"
+    "dev": "nodemon -r @babel/register -r dotenv/config src/app.js",
+    "migrate": "node -r @babel/register -r dotenv/config src/migrate.js"
   },
   "dependencies": {
     "@babel/core": "^7.13.10",

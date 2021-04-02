@@ -6,6 +6,7 @@ mutation ($username: String! $password: String!) {
     token
     user {
       _id
+      role
       name
     }
     requiredNewPassword

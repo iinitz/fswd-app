@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 mongoose.Promise = Promise
 mongoose.connect(
-  'mongodb://mongodb:27017',
+  process.env.MONGOOSE_URI ?? 'mongodb://mongodb:27017',
   {
     dbName: 'test',
     user: 'user',

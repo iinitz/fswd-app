@@ -39,7 +39,7 @@ const LoginForm = () => {
     <form className="LoginForm-form" onSubmit={handleLogin}>
       <input className="LoginForm-input LoginForm-username" type="text" value={username} onChange={handleUsernameChange} placeholder="Username" required />
       <input className="LoginForm-input LoginForm-password" type="password" value={password} onChange={handlePasswordChange} placeholder="Password" required />
-      <button className="LoginForm-button" type="submit" disabled={disabled}>Login</button>
+      <button className="Button Button-border LoginForm-button" type="submit" disabled={disabled}>Login</button>
     </form>
   )
 }
