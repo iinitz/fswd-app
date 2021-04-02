@@ -1,0 +1,37 @@
+.LoginForm-form {
+  display: flex;
+  align-items: baseline;
+}
+.LoginForm-input {
+  width: 160px;
+  height: 36px;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-indent: calc(var(--font-input) - 2px);
+  font-size: var(--font-input);
+  background-color: var(--bg-input);
+  caret-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+.LoginForm-username {
+  border-top-left-radius: var(--spacing);
+  border-bottom-left-radius: var(--spacing);
+  margin-right: 2px;
+}
+.LoginForm-password {
+  border-top-right-radius: var(--spacing);
+  border-bottom-right-radius: var(--spacing);
+}
+.LoginForm-button {
+  margin-left: var(--spacing);
+  outline: none;
+  border: none;
+  font-size: var(--font-action);
+  background-color: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.LoginForm-button:disabled {
+  color: var(--text-disabled);
+}

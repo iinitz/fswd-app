@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # [Choice] Node.js version: 14, 12, 10
+        VARIANT: 14
+        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        USER_UID: 1000
+        USER_GID: 1000
+    volumes:
+      - ..:/workspace:cached
+      - ~/.ssh:/home/node/.ssh:cached
+      - ~/.gitconfig:/home/node/.gitconfig:cached
+      - ~/.gnupg:/home/node/.gnupg:cached
+    environment:
+      TZ: Asia/Bangkok
+    command: sleep infinity
+    user: node
+    hostname: app
+    networks:
+      - gateway
+
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: test
+    hostname: mongodb
+    networks:
+      - gateway
+
+volumes:
+  mongodb-data:
+
+networks:
+  gateway:
+    external: true

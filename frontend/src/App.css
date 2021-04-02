@@ -1,0 +1,10 @@
+.App-page {
+  height: calc(100vh - 57px);
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 0 auto;
+}
+.App-page .App-content {
+  padding: calc(var(--spacing) * 3);
+  margin: 0 auto;
+}
