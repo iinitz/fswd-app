@@ -1,0 +1,6 @@
+.DeveloperCard-disabled {
+  cursor: auto;
+}
+.DeveloperCard-disabled:hover {
+  color: var(--text-secondary);
+}

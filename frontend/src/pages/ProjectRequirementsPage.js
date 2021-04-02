@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MarkdownGithub from 'react-markdown-github'
 
 import Loading from '../components/Loading'
-import PageHeader from '../components/PageHeader'
+
+const PageHeader = React.lazy(() => import('../components/PageHeader'))
 
 const ProjectRequirementsPage = () => {
   const [loading, setLoading] = useState(false)
@@ -29,7 +30,7 @@ const ProjectRequirementsPage = () => {
   return (
     <div>
       <PageHeader title="Requirements">
-        <Link to={{ pathname: 'https://github.com/iinitz/fswd-project/blob/main/e-commerce.md' }} target="_blank">View on Github</Link>
+        <Link className="Button Button-border" to={{ pathname: 'https://github.com/iinitz/fswd-project/blob/main/e-commerce.md' }} target="_blank">View on Github</Link>
       </PageHeader>
       <MarkdownGithub source={data} />
     </div>

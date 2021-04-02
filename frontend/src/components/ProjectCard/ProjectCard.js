@@ -1,21 +1,21 @@
-import { useCallback, useMemo } from 'react'
+import { Fragment, useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 
-import './WorkCard.css'
-import Divider from '../Divider'
+import './ProjectCard.css'
+import Card from '../Card'
 import { useSession } from '../../contexts/SessionContext'
 import { PROJECTS_QUERY } from '../../graphql/projectsQuery'
 import { JOIN_GROUP_MUTATION } from '../../graphql/joinGroupMutation'
 import { LEAVE_GROUP_MUTATION } from '../../graphql/leaveGroupMutation'
 
-const WorkCard = (props) => {
+const ProjectCard = (props) => {
+  const {
+    _id: workId, name, url, repo, members, membersCount, membersLimit,
+  } = props
   const { user } = useSession()
   const [joinGroup] = useMutation(JOIN_GROUP_MUTATION)
   const [leaveGroup] = useMutation(LEAVE_GROUP_MUTATION)
-  const {
-    _id: workId, type, name, url, repo, members, membersCount, membersLimit,
-  } = props
   const handleJoinGroup = useCallback(
     async () => {
       try {
@@ -40,9 +40,6 @@ const WorkCard = (props) => {
   )
   const renderActions = useMemo(
     () => {
-      if (type === 'Homework') {
-        return null
-      }
       if (user?.role === 'Developer') {
         if (members.some((member) => (member._id === user?._id))) {
           return (
@@ -60,25 +57,27 @@ const WorkCard = (props) => {
       }
       return null
     },
-    [handleJoinGroup, handleLeaveGroup, members, membersLimit, type, user?._id, user?.role],
+    [handleJoinGroup, handleLeaveGroup, members, membersLimit, user?._id, user?.role],
   )
   return (
-    <article className="WorkCard-card">
+    <Card
+      header={name}
+      actions={(
+        <Fragment>
+          {/* <Link className="Button ProjectCard-button" to={`/project/${workId}`}>Detail</Link> */}
+          <span className="Button Button-disabled">Detail</span>
+          {url ? (<Link className="Button ProjectCard-button" to={{ pathname: url }} target="_blank">Web</Link>) : null}
+          {repo ? (<Link className="Button ProjectCard-button" to={{ pathname: repo }} target="_blank">Repo</Link>) : null}
+          <div className="Space" />
+          {renderActions}
+        </Fragment>
+    )}
+    >
       <pre>
-        {JSON.stringify({
-          name, url, repo, members: members.map((member) => (member.name)), membersCount,
-        }, null, 4)}
+        {JSON.stringify({ members: members.map((member) => (member.name)), membersCount }, null, 4)}
       </pre>
-      <div className="Space" />
-      <Divider />
-      <div className="WorkCard-actions">
-        <Link className="Button WorkCard-button" to={{ pathname: url }} target="_blank">Preview</Link>
-        <Link className="Button WorkCard-button" to={{ pathname: repo }} target="_blank">Repo</Link>
-        <div className="Space" />
-        {renderActions}
-      </div>
-    </article>
+    </Card>
   )
 }
 
-export default WorkCard
+export default ProjectCard

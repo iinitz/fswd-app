@@ -1,8 +1,12 @@
+import React from 'react'
 import { useQuery } from '@apollo/client'
 
 import Loading from '../components/Loading'
-import PageHeader from '../components/PageHeader'
 import { SENIORS_QUERY } from '../graphql/seniorsQuery'
+
+const PageHeader = React.lazy(() => import('../components/PageHeader'))
+const GridContainer = React.lazy(() => import('../components/GridContainer'))
+const SeniorCard = React.lazy(() => import('../components/SeniorCard'))
 
 const SeniorPage = () => {
   const { loading, error, data } = useQuery(SENIORS_QUERY, { fetchPolicy: 'network-only' })
@@ -14,10 +18,15 @@ const SeniorPage = () => {
   if (error) {
     return 'Error !!'
   }
+  const { seniors } = data
   return (
     <div>
       <PageHeader title="Senior" />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <GridContainer>
+        {seniors?.map((senior) => (
+          <SeniorCard key={senior._id} {...senior} />
+        ))}
+      </GridContainer>
     </div>
   )
 }

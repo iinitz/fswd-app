@@ -1,0 +1,9 @@
+.SeniorCard-button {
+  margin-right: var(--spacing);
+}
+.SeniorCard-disabled {
+  cursor: auto;
+}
+.SeniorCard-disabled:hover {
+  color: var(--text-secondary);
+}

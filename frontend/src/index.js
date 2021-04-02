@@ -12,7 +12,18 @@ import reportWebVitals from './reportWebVitals'
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_URI,
-  cache: new InMemoryCache({ possibleTypes }),
+  cache: new InMemoryCache({
+    possibleTypes,
+    typePolicies: {
+      Project: {
+        fields: {
+          members: {
+            merge: false,
+          },
+        },
+      },
+    },
+  }),
   credentials: 'include',
 })
 

@@ -6,6 +6,17 @@ query {
     _id
     role
     name
+    ... on Senior {
+      title
+      company
+      contact {
+        github
+        discord
+        facebook
+        twitter
+        other
+      }
+    }
     ... on Developer {
       project {
         ...workDetail

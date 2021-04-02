@@ -1,10 +1,12 @@
+import React from 'react'
 import { useQuery } from '@apollo/client'
 
 import Loading from '../components/Loading'
-import PageHeader from '../components/PageHeader'
-import GridContainer from '../components/GridContainer'
-import WorkCard from '../components/WorkCard/WorkCard'
 import { HOMEWORKS_QUERY } from '../graphql/homeworksQuery'
+
+const PageHeader = React.lazy(() => import('../components/PageHeader'))
+const GridContainer = React.lazy(() => import('../components/GridContainer'))
+const HomeworkCard = React.lazy(() => import('../components/HomeworkCard'))
 
 const HomeworkPage = () => {
   const { loading, error, data } = useQuery(HOMEWORKS_QUERY, { fetchPolicy: 'network-only' })
@@ -22,7 +24,7 @@ const HomeworkPage = () => {
       <PageHeader title="Homework" />
       <GridContainer>
         {homeworks?.map((homework) => (
-          <WorkCard key={homework._id} {...homework} />
+          <HomeworkCard key={homework._id} {...homework} />
         ))}
       </GridContainer>
     </div>
