@@ -2,16 +2,28 @@
   {
     "username": "iinitz",
     "password": "iinitz",
-    "name": "Bank"
-  },
-  {
-    "username": "t",
-    "password": "t",
-    "name": "T"
+    "name": "Bank",
+    "title": "Team Lead",
+    "company": "Zimpligital",
+    "contact": {
+      "github": "https://github.com/iinitz",
+      "discord": "iinitz#7411",
+      "facebook": "https://www.facebook.com/iinitz",
+      "twitter": "https://twitter.com/iinitz"
+    }
   },
   {
     "username": "oat",
     "password": "oat",
-    "name": "Oat"
+    "name": "Oat",
+    "title": "Head of Developer",
+    "company": "Zimpligital"
+  },
+  {
+    "username": "t",
+    "password": "t",
+    "name": "T",
+    "title": "CTO",
+    "company": "Thai.run"
   }
 ]

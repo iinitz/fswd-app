@@ -14,7 +14,7 @@ const HomeworkCard = (props) => {
       actions={(
         <Fragment>
           {/* <Link className="Button HomeworkCard-button" to={`/homework/${workId}`}>Detail</Link> */}
-          <span className="Button Button-disabled">Detail</span>
+          <span className="Button Button-disabled HomeworkCard-button">Detail</span>
           {url ? (<Link className="Button HomeworkCard-button" to={{ pathname: url }} target="_blank">Web</Link>) : null}
           {repo ? (<Link className="Button HomeworkCard-button" to={{ pathname: repo }} target="_blank">Repo</Link>) : null}
         </Fragment>

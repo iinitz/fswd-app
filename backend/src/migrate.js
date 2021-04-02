@@ -19,7 +19,7 @@ const migrate = async () => {
     [],
   )
   await SeniorModel.create(seniors.map((user) => ({ ...user })))
-  await HomeworkModel.create(homeworks.map(({ memberIds }, index) => ({ name: `HW G${index + 1}`, memberIds: mapId(memberIds) })))
+  await HomeworkModel.create(homeworks.map(({ memberIds, ...detail }, index) => ({ name: `HW G${index + 1}`, ...detail, memberIds: mapId(memberIds) })))
   await ProjectModel.create(Array(15).fill().map((_, index) => ({ name: `Group ${index + 1}` })))
   console.log('Migrate completed')
 }

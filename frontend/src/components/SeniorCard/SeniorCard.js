@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { Link } from 'react-router-dom'
 
 import './SeniorCard.css'
 import Card from '../Card'
@@ -16,16 +15,14 @@ const SeniorCard = (props) => {
       header={name}
       actions={(
         <Fragment>
-          <span className="Button SeniorCard-button SeniorCard-disabled">Contact: {!github && !discord && !facebook && !twitter ? '-' : null}</span>
-          {github ? (<Link className="Button SeniorCard-button" to={{ pathname: github }} target="_blank">Github</Link>) : null}
-          {discord ? (<Link className="Button SeniorCard-button" to={{ pathname: discord }} target="_blank">Discord</Link>) : null}
-          {facebook ? (<Link className="Button SeniorCard-button" to={{ pathname: facebook }} target="_blank">Facebook</Link>) : null}
-          {twitter ? (<Link className="Button SeniorCard-button" to={{ pathname: twitter }} target="_blank">Twitter</Link>) : null}
+          <span className="Button SeniorCard-button SeniorCard-disabled">{title} @ {company}</span>
         </Fragment>
       )}
     >
       <pre>
-        {JSON.stringify({ title, company }, null, 4)}
+        {JSON.stringify({
+          github, discord, facebook, twitter,
+        }, null, 4)}
       </pre>
     </Card>
   )
