@@ -1,0 +1,19 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: calc(var(--spacing) * 2);
+}
+.Header-title {
+  font-size: calc(var(--font-header) * 1.5);
+  font-weight: bold;
+  margin: 0;
+}
+.Header-space {
+  flex-grow: 1;
+}
+.Header-actions {
+  color: var(--text-secondary);
+}

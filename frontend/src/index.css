@@ -1,11 +1,12 @@
 :root {
   --text-primary: #e4e6eb;
   --text-secondary: #b0b3b8;
-  --text-disabled: #3a3b3c;
+  --text-disabled: #626364;
   --bg-primary: #1c1e21;
   --bg-secondary: #242526;
   --bg-input: #3a3b3c;
   --border-color: #3a3b3c;
+  --border-hover: #626364;
   --spacing: 8px;
   --font-header: 20px;
   --font-sub-header: 18px;
@@ -27,4 +28,31 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+pre {
+  margin: 0;
+}
+.Button {
+  outline: none;
+  border: 0;
+  font-size: var(--font-action);
+  background-color: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.Button.Button-border {
+  padding: calc(var(--spacing) / 2) calc(var(--spacing) * 2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--spacing);
+}
+.Button:disabled, .Button:disabled:hover {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+.Button:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+.Space {
+  flex-grow: 1;
 }

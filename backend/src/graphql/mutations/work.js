@@ -19,8 +19,8 @@ export const joinGroup = schemaComposer.createResolver({
   resolve: async ({ args, context }) => {
     const { workId } = args
     const { _id: userId, role } = context.user
-    if (role !== 'Student') {
-      throw new ValidationError('Only student can join group')
+    if (role !== 'Developer') {
+      throw new ValidationError('Only developer can join group')
     }
     const work = await WorkModel.findById(workId)
     if (!work) {
@@ -50,14 +50,14 @@ export const leaveGroup = schemaComposer.createResolver({
   resolve: async ({ args, context }) => {
     const { workId } = args
     const { _id: userId, role } = context.user
-    if (role !== 'Student') {
-      throw new ValidationError('Only student can leave group')
+    if (role !== 'Developer') {
+      throw new ValidationError('Only developer can leave group')
     }
     const work = await WorkModel.findById(workId)
     if (!work) {
       throw new ValidationError('Invalid work ID')
     }
-    const newWork = await WorkModel.findByIdAndUpdate(workId, { $pullAll: { memberIds: userId } }, { new: true })
+    const newWork = await WorkModel.findByIdAndUpdate(workId, { $pull: { memberIds: userId } }, { new: true })
     return newWork
   },
 }).wrapResolve(requiredAuth)

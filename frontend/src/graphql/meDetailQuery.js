@@ -4,6 +4,7 @@ export const ME_DETAIL_QUERY = gql`
 query {
   me {
     _id
+    role
     name
     ... on Developer {
       project {

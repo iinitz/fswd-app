@@ -4,6 +4,7 @@ export const HOMEWORKS_QUERY = gql`
 query {
   homeworks {
     _id
+    type
     name
     url
     repo
@@ -12,6 +13,7 @@ query {
       name
     }
     membersCount
+    membersLimit
   }
 }
 `

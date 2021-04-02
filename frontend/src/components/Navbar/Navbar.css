@@ -24,18 +24,9 @@
   font-weight: bold;
   color: inherit;
 }
-.Navbar-space {
-  flex-grow: 1;
-}
 .Navbar-user {
   font-size: var(--font-sub-header);
 }
 .Navbar-button {
   margin-left: var(--spacing);
-  outline: none;
-  border: none;
-  font-size: var(--font-action);
-  background-color: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
 }

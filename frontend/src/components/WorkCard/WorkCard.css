@@ -1,0 +1,19 @@
+.WorkCard-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--spacing);
+  padding: calc(var(--spacing) * 2);
+}
+.WorkCard-card:hover {
+  border-color: var(--border-hover);
+}
+.WorkCard-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.WorkCard-button {
+  margin-right: var(--spacing);
+}

@@ -25,13 +25,4 @@
 }
 .LoginForm-button {
   margin-left: var(--spacing);
-  outline: none;
-  border: none;
-  font-size: var(--font-action);
-  background-color: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-}
-.LoginForm-button:disabled {
-  color: var(--text-disabled);
 }
