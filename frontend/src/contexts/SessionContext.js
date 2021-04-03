@@ -16,7 +16,7 @@ export const SessionProvider = (props) => {
   const location = useLocation()
   const [user, setUser] = useState(null)
   const [, setCookie, removeCookie] = useCookies(['token'])
-  const [loadMe, { loading, data }] = useLazyQuery(ME_QUERY, { fetchPolicy: 'network-only' })
+  const [loadMe, { loading, data, client }] = useLazyQuery(ME_QUERY, { fetchPolicy: 'network-only' })
   const [login] = useMutation(LOGIN_MUTATION)
   const handleLogin = useCallback(
     async (username, password) => {
@@ -35,11 +35,13 @@ export const SessionProvider = (props) => {
     [history, login, setCookie],
   )
   const handleLogout = useCallback(
-    () => {
-      setUser(null)
+    async () => {
       removeCookie('token', { maxAge: 86400 })
+      await client.clearStore()
+      await loadMe()
+      setUser(null)
     },
-    [removeCookie],
+    [client, loadMe, removeCookie],
   )
   useEffect(
     () => {
