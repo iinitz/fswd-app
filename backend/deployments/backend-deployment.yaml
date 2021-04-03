@@ -48,9 +48,18 @@ spec:
             - name: CORS
               value: https://fswd.devnss.com
             - name: MONGOOSE_URI
+              value: mongodb://db.devnss.com:32005/fswb?authSource=admin
+            - name: MONGOOSE_DBNAME
+              value: fswb
+            - name: MONGOOSE_USER
               valueFrom:
                 secretKeyRef:
                   name: fswd-backend-cred
-                  key: mongoose_uri
+                  key: mongoose_user
+            - name: MONGOOSE_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: fswd-backend-cred
+                  key: mongoose_pass
             - name: SECRET
               value: 8LAHrPZVOP2pgTPRXWkq
