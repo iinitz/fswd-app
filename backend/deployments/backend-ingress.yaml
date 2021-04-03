@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fswd-backend
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: fswd.devnss.com
+    http:
+      paths:
+      - backend:
+          serviceName: fswd-backend
+          servicePort: 80
+        path: /graphql(/|$)(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - fswd.devnss.com
+    secretName: wildcard-nativesrc-tls

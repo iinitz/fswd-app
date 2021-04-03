@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node -r @babel/register -r dotenv/config src/app.js",
+    "start": "node -r @babel/register -r dotenv/config src/app.js",
     "dev": "nodemon -r @babel/register -r dotenv/config src/app.js",
     "migrate": "node -r @babel/register -r dotenv/config src/migrate.js"
   },

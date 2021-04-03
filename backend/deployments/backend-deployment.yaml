@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fswd-backend
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3001
+      protocol: TCP
+  selector:
+    name: fswd-backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fswd-backend
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      name: fswd-backend
+  template:
+    metadata:
+      labels:
+        name: fswd-backend
+    spec:
+      imagePullSecrets:
+      - name: nssgitlab
+      containers:
+        - name: default
+          image: registry.nativesrc.com/fswd/fswd-backend
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "50Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "3001"
+            - name: CORS
+              value: https://fswd.devnss.com
+            - name: MONGOOSE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: fswd-backend-cred
+                  key: mongoose_uri
+            - name: SECRET
+              value: 8LAHrPZVOP2pgTPRXWkq
