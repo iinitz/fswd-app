@@ -1,0 +1,1 @@
+{"ErrorInterface":["ValidationError","MongoError","RuntimeError"],"UserInterface":["User","Admin","Senior","Developer"],"WorkInterface":["Work","Homework","Project"]}
