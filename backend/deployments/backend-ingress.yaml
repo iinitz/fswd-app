@@ -5,7 +5,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - host: fswd.devnss.com
@@ -14,7 +13,7 @@ spec:
       - backend:
           serviceName: fswd-backend
           servicePort: 80
-        path: /graphql(/|$)(.*)
+        path: /graphql
         pathType: ImplementationSpecific
   tls:
   - hosts:
