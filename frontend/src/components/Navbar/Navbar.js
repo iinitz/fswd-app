@@ -16,7 +16,7 @@ const Navbar = () => {
       if (user) {
         return (
           <Fragment>
-            <NavLink className="Navbar-user" to="/me">{user?.name}</NavLink>
+            <NavLink className="Navbar-user" to="/me">{user?.name} ({user?.role})</NavLink>
             <button className="Button Button-border Navbar-button" type="button" onClick={handleLogout}>Logout</button>
           </Fragment>
         )

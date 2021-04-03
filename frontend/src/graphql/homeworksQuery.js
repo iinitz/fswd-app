@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const HOMEWORKS_QUERY = gql`
 query {
-  homeworks {
+  homeworks (sort: _ID_ASC) {
     _id
     type
     name

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const SENIORS_QUERY = gql`
 query {
-  seniors {
+  seniors (sort: _ID_ASC) {
     _id
     username
     name
