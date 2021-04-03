@@ -31,7 +31,7 @@ spec:
       - name: nssgitlab
       containers:
         - name: default
-          image: registry.nativesrc.com/fswd/fswd-backend
+          image: asia.gcr.io/PROJECT_ID/IMAGE:TAG
           imagePullPolicy: IfNotPresent
           resources:
             requests:

@@ -47,7 +47,6 @@ jobs:
         run: |-
           curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ./kustomize
-          mv kustomize backend/deployment/
 
       # Set up kubeconfig file
       - name: Set up Kubeconfig file
@@ -59,7 +58,7 @@ jobs:
       - name: Deploy
         run: |-
           cd backend/deployments
-          kustomize edit set image registry.nativesrc.com/fswd/fswd-backend:TAG=$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME:$GITHUB_SHA
-          kustomize build . | kubectl apply -n $NAMESPACE -f -
+          ../../kustomize edit set image asia.gcr.io/PROJECT_ID/IMAGE:TAG=$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME:$GITHUB_SHA
+          ../../kustomize build . | kubectl apply -n $NAMESPACE -f -
           kubectl rollout status -n $NAMESPACE deployment/$DEPLOYMENT_NAME
           kubectl get ingress -n $NAMESPACE $DEPLOYMENT_NAME
