@@ -11,7 +11,7 @@ const PrivateRoute = (props) => {
       render={({ location }) => {
         if (!user) {
           return (
-            <Redirect to={{ pathname: '/project', state: { from: location } }} />
+            <Redirect to={{ pathname: '/404', state: { from: location } }} />
           )
         }
         return children

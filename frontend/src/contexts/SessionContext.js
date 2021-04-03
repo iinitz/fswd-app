@@ -38,9 +38,8 @@ export const SessionProvider = (props) => {
     () => {
       setUser(null)
       removeCookie('token', { maxAge: 86400 })
-      history.push('/')
     },
-    [history, removeCookie],
+    [removeCookie],
   )
   useEffect(
     () => {
@@ -59,12 +58,12 @@ export const SessionProvider = (props) => {
         try {
           await loadMe()
         } catch (err) {
-          removeCookie('token', { maxAge: 86400 })
+          handleLogout()
         }
       }
       loadData()
     },
-    [loadMe, removeCookie],
+    [handleLogout, loadMe, removeCookie],
   )
   return (
     <SessionContext.Provider
