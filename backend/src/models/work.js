@@ -25,7 +25,7 @@ const WorkSchema = new Schema({
     index: true,
     ref: 'User',
   }],
-  membersLimit: { type: Number, enum: [2, 4] },
+  membersLimit: { type: Number, enum: [2, 4, 5] },
 }, { discriminatorKey: DKey })
 const HomeworkSchema = new Schema({
   membersLimit: { type: Number, default: 2 },

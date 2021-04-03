@@ -16,8 +16,11 @@
     "username": "oat",
     "password": "oat",
     "name": "Oat",
-    "title": "Head of Developer",
-    "company": "Zimpligital"
+    "title": "Director of Software Development",
+    "company": "Zimpligital",
+    "contact": {
+      "discord": "[P]ladib[N]eko#6881"
+    }
   },
   {
     "username": "t",
