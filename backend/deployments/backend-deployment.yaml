@@ -41,6 +41,8 @@ spec:
               cpu: "500m"
               memory: "512Mi"
           env:
+            - name: TZ
+              value: Asia/Bangkok
             - name: NODE_ENV
               value: production
             - name: PORT
