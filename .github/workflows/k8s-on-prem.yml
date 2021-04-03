@@ -3,11 +3,14 @@ name: Build and Deploy to K8s on-premise
 on: push
 
 env:
+  REACT_APP_GRAPHQL_URI: https://fswd.devnss.com/graphql
   KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
   NAMESPACE: dev
-  DEPLOYMENT_NAME: fswd-backend
   PROJECT_NAME: fswd
-  IMAGE_NAME: fswd-backend
+  DEPLOYMENT_NAME_BACKEND: fswd-backend
+  IMAGE_NAME_BACKEND: fswd-backend
+  DEPLOYMENT_NAME_FRONTEND: fswd-frontend
+  IMAGE_NAME_FRONTEND: fswd-frontend
   DOCKER_REGISTRY_URL: registry.nativesrc.com
   DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
   DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
@@ -30,8 +33,8 @@ jobs:
         run: |-
           cd backend && \
           docker build \
-            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME:$GITHUB_SHA" \
-            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME" \
+            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_BACKEND:$GITHUB_SHA" \
+            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_BACKEND" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" \
             .
@@ -39,8 +42,8 @@ jobs:
       # Push the Docker image to Image Registry
       - name: Publish
         run: |-
-          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME"
-          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME:$GITHUB_SHA"
+          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_BACKEND"
+          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_BACKEND:$GITHUB_SHA"
 
       # Set up kustomize
       - name: Set up Kustomize
@@ -58,7 +61,58 @@ jobs:
       - name: Deploy
         run: |-
           cd backend/deployments
-          ../../kustomize edit set image asia.gcr.io/PROJECT_ID/IMAGE:TAG=$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME:$GITHUB_SHA
+          ../../kustomize edit set image asia.gcr.io/PROJECT_ID/IMAGE:TAG=$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_BACKEND:$GITHUB_SHA
           ../../kustomize build . | kubectl apply -n $NAMESPACE -f -
-          kubectl rollout status -n $NAMESPACE deployment/$DEPLOYMENT_NAME
-          kubectl get ingress -n $NAMESPACE $DEPLOYMENT_NAME
+          kubectl rollout status -n $NAMESPACE deployment/$DEPLOYMENT_NAME_BACKEND
+          kubectl get ingress -n $NAMESPACE $DEPLOYMENT_NAME_BACKEND
+
+  deploy-frontend:
+    name: Build & Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Configure Docker to login to image registry
+      - run: |-
+          docker login "$DOCKER_REGISTRY_URL" --username "$DOCKER_REGISTRY_USERNAME" --password "$DOCKER_REGISTRY_PASSWORD"
+
+      # Build the Docker image
+      - name: Build
+        run: |-
+          cd frontend && \
+          docker build \
+            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_FRONTEND:$GITHUB_SHA" \
+            --tag "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_FRONTEND" \
+            --build-arg REACT_APP_GRAPHQL_URI="$REACT_APP_GRAPHQL_URI" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            .
+
+      # Push the Docker image to Image Registry
+      - name: Publish
+        run: |-
+          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_FRONTEND"
+          docker push "$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_FRONTEND:$GITHUB_SHA"
+
+      # Set up kustomize
+      - name: Set up Kustomize
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+
+      # Set up kubeconfig file
+      - name: Set up Kubeconfig file
+        run: |-
+          mkdir ~/.kube
+          echo $KUBECONFIG_FILE | base64 -d > ~/.kube/config
+
+      # Deploy the Docker image to the K8s cluster
+      - name: Deploy
+        run: |-
+          cd frontend/deployments
+          ../../kustomize edit set image asia.gcr.io/PROJECT_ID/IMAGE:TAG=$DOCKER_REGISTRY_URL/$PROJECT_NAME/$IMAGE_NAME_FRONTEND:$GITHUB_SHA
+          ../../kustomize build . | kubectl apply -n $NAMESPACE -f -
+          kubectl rollout status -n $NAMESPACE deployment/$DEPLOYMENT_NAME_FRONTEND
+          kubectl get ingress -n $NAMESPACE $DEPLOYMENT_NAME_FRONTEND
