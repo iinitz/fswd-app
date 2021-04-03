@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
+import moment from 'moment'
 
 import './ProjectCard.css'
 import Card from '../Card'
@@ -40,7 +41,7 @@ const ProjectCard = (props) => {
   )
   const renderActions = useMemo(
     () => {
-      if (user?.role === 'Developer') {
+      if (user?.role === 'Developer' && (process.env.REACT_APP_PROJECT_DATE && moment().isBefore(process.env.REACT_APP_PROJECT_DATE))) {
         if (members.some((member) => (member._id === user?._id))) {
           return (
             <button className="Button Button-border" type="button" onClick={handleLeaveGroup}>Leave</button>

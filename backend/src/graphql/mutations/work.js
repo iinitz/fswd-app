@@ -1,5 +1,6 @@
 import { ValidationError } from 'apollo-server-express'
 import { schemaComposer } from 'graphql-compose'
+import moment from 'moment'
 
 import {
   HomeworkTC, ProjectTC, WorkModel, WorkTC,
@@ -19,6 +20,9 @@ export const joinGroup = schemaComposer.createResolver({
   resolve: async ({ args, context }) => {
     const { workId } = args
     const { _id: userId, role } = context.user
+    if (process.env.PROJECT_DATE && moment().isAfter(process.env.PROJECT_DATE)) {
+      throw new ValidationError(`Can't join group after ${process.env.PROJECT_DATE}`)
+    }
     if (role !== 'Developer') {
       throw new ValidationError('Only developer can join group')
     }
@@ -50,6 +54,9 @@ export const leaveGroup = schemaComposer.createResolver({
   resolve: async ({ args, context }) => {
     const { workId } = args
     const { _id: userId, role } = context.user
+    if (process.env.PROJECT_DATE && moment().isAfter(process.env.PROJECT_DATE)) {
+      throw new ValidationError(`Can't leave group after ${process.env.PROJECT_DATE}`)
+    }
     if (role !== 'Developer') {
       throw new ValidationError('Only developer can leave group')
     }
