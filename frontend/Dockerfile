@@ -1,4 +1,6 @@
 FROM node:lts-alpine as build-stage
+ARG REACT_APP_GRAPHQL_URI
+ENV REACT_APP_GRAPHQL_URI=$REACT_APP_GRAPHQL_URI
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
