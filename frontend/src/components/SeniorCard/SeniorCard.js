@@ -8,7 +8,7 @@ const SeniorCard = (props) => {
     name, title, company, contact,
   } = props
   const {
-    github, discord, facebook, twitter,
+    github, discord, facebook, twitter, other,
   } = contact
   return (
     <Card
@@ -21,7 +21,7 @@ const SeniorCard = (props) => {
     >
       <pre>
         {JSON.stringify({
-          github, discord, facebook, twitter,
+          github, discord, facebook, twitter, other,
         }, null, 4)}
       </pre>
     </Card>
