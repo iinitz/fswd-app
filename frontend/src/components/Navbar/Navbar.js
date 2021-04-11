@@ -34,6 +34,7 @@ const Navbar = () => {
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/homework">Homework</NavLink>
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/developer">Developer</NavLink>
       <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/senior">Senior</NavLink>
+      <NavLink className="Navbar-menu" activeClassName="Navbar-menu-active" to="/random">Random</NavLink>
       <div className="Space" />
       <Suspense fallback={null}>
         {userBox}

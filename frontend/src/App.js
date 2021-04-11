@@ -11,6 +11,7 @@ const ProjectRequirementsPage = React.lazy(() => import('./pages/ProjectRequirem
 const HomeworkPage = React.lazy(() => import('./pages/HomeworkPage'))
 const DeveloperPage = React.lazy(() => import('./pages/DeveloperPage'))
 const SeniorPage = React.lazy(() => import('./pages/SeniorPage'))
+const RandomPage = React.lazy(() => import('./pages/RandomPage'))
 const MePage = React.lazy(() => import('./pages/MePage'))
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'))
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/homework" exact><HomeworkPage /></Route>
             <Route path="/developer" exact><DeveloperPage /></Route>
             <Route path="/senior" exact><SeniorPage /></Route>
+            <Route path="/random" exact><RandomPage /></Route>
             <PrivateRoute path="/me" exact><MePage /></PrivateRoute>
             <Route path="*"><NotFoundPage /></Route>
           </Switch>
