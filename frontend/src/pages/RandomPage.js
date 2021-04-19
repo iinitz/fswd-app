@@ -144,7 +144,7 @@ const RandomPage = () => {
   return (
     <div>
       <PageHeader title="Random project">
-        {projects.length > 0 ? (
+        {projects?.length > 0 ? (
           <button className="Button Button-border Button-margin-right" type="button" onClick={handleNext} disabled={selectedProject === null}>Next</button>
         ) : null}
         <button className="Button Button-border" type="button" onClick={handleReset}>Reset</button>
@@ -155,11 +155,11 @@ const RandomPage = () => {
           <ProjectCard {...selectedProject} />
         ) : (
           <Card
-            header={index === -1 ? `Random project (${projects.length} projects left)` : projects?.[index]?.name}
+            header={index === -1 ? `Random project (${projects?.length} projects left)` : projects?.[index]?.name}
             actions={(
               <Fragment>
                 <div className="Space" />
-                <button className="Button Button-border" type="button" onClick={handleRandom} disabled={projects.length === 0 || index !== -1}>Random</button>
+                <button className="Button Button-border" type="button" onClick={handleRandom} disabled={projects?.length === 0 || index !== -1}>Random</button>
               </Fragment>
             )}
           />
