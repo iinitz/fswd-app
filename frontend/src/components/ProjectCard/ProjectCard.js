@@ -66,9 +66,9 @@ const ProjectCard = (props) => {
       actions={(
         <Fragment>
           {/* <Link className="Button ProjectCard-button" to={`/project/${workId}`}>Detail</Link> */}
-          <span className="Button Button-disabled ProjectCard-button">Detail</span>
-          {url ? (<Link className="Button ProjectCard-button" to={{ pathname: url }} target="_blank">Web</Link>) : null}
-          {repo ? (<Link className="Button ProjectCard-button" to={{ pathname: repo }} target="_blank">Repo</Link>) : null}
+          <span className="Button Button-disabled ProjectCard-button">Link</span>
+          {url ? (<Link className="Button ProjectCard-button" to={{ pathname: url }} target="_blank">Web</Link>) : <span className="Button Button-disabled ProjectCard-button">Web</span>}
+          {repo ? (<Link className="Button ProjectCard-button" to={{ pathname: repo }} target="_blank">Github</Link>) : <span className="Button Button-disabled ProjectCard-button">Github</span>}
           <div className="Space" />
           {renderActions}
         </Fragment>
